@@ -46,19 +46,21 @@ body {
     z-index: 1;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1.5rem;
+    transform: scale(0.9);
+    transform-origin: top center;
 }
 
 /* Header */
 header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     animation: fadeInDown 1s ease-out;
 }
 
 h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-size: clamp(2rem, 6vw, 4rem);
     font-weight: 900;
     text-transform: uppercase;
     background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
@@ -76,8 +78,13 @@ h1 {
     50% { opacity: 0.8; }
 }
 
+@keyframes rainbow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
 .subtitle {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: var(--primary);
     opacity: 0.8;
     letter-spacing: 0.3em;
@@ -87,16 +94,16 @@ h1 {
 /* Games Grid */
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .game-card {
     background: rgba(10, 14, 39, 0.6);
     border: 2px solid var(--primary);
     border-radius: 15px;
-    padding: 2rem;
+    padding: 1.5rem;
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -132,8 +139,8 @@ h1 {
 }
 
 .game-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
     display: inline-block;
     animation: float 3s ease-in-out infinite;
 }
@@ -149,16 +156,17 @@ h1 {
 
 .game-card h2 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--primary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     text-transform: uppercase;
 }
 
 .game-card p {
     color: rgba(0, 255, 204, 0.7);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+    font-size: 0.9rem;
 }
 
 .play-btn {

@@ -1,0 +1,9 @@
+# Force correct MIME types
+AddType text/css .css
+AddType application/javascript .js
+AddType text/html .html
+
+# Enable CORS (si nécessaire)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
