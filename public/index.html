@@ -2,18 +2,15 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dracks - Entraînement Cérébral</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="bg-grid"></div>
-    
     <div class="container">
         <header>
-            <h1 id="title-egg">DRACKS</h1>
-            <p class="subtitle">Entraînement Cérébral</p>
+            <h1>Dracks</h1>
+            <p class="subtitle">Entraînez votre cerveau avec des jeux simples et efficaces</p>
         </header>
 
         <div id="menu" class="games-grid">
@@ -21,28 +18,28 @@
                 <div class="game-icon">⚡</div>
                 <h2>Temps de Réaction</h2>
                 <p>Testez vos réflexes ! Cliquez dès que la zone devient verte. Soyez rapide et précis.</p>
-                <button class="play-btn">Jouer</button>
+                <button class="play-btn">Commencer</button>
             </div>
 
             <div class="game-card" onclick="startGame('memory')">
                 <div class="game-icon">🧠</div>
                 <h2>Mémoire Séquentielle</h2>
                 <p>Mémorisez et reproduisez des séquences de plus en plus longues. Entraînez votre mémoire !</p>
-                <button class="play-btn">Jouer</button>
+                <button class="play-btn">Commencer</button>
             </div>
 
             <div class="game-card" onclick="startGame('focus')">
                 <div class="game-icon">🎯</div>
                 <h2>Attention & Focus</h2>
                 <p>Cliquez sur les cibles qui apparaissent aléatoirement. Concentration et rapidité requises !</p>
-                <button class="play-btn">Jouer</button>
+                <button class="play-btn">Commencer</button>
             </div>
 
             <div class="game-card" onclick="startGame('blocks')">
                 <div class="game-icon">🧊</div>
-                <h2>BLOCKS</h2>
+                <h2>Blocks</h2>
                 <p>Comptez rapidement le nombre de blocs affichés en 3D. Mémoire visuelle et rapidité d'estimation !</p>
-                <button class="play-btn">Jouer</button>
+                <button class="play-btn">Commencer</button>
             </div>
         </div>
 
@@ -50,9 +47,9 @@
         <div id="reaction-game" class="game-area">
             <h2 class="game-title">⚡ Temps de Réaction</h2>
             <div class="score-display">
-                <span id="reaction-score">Meilleur temps: --</span>
+                <span id="reaction-score">Meilleur temps : --</span>
             </div>
-            <p class="instruction" id="reaction-instruction">Cliquez sur "Démarrer" puis attendez que la zone devienne verte !</p>
+            <p class="instruction" id="reaction-instruction">Cliquez pour démarrer, puis attendez que la zone devienne verte !</p>
             <div class="game-canvas">
                 <div id="reaction-zone" class="reaction-zone" onclick="handleReactionClick()">
                     Cliquez pour commencer
@@ -68,14 +65,14 @@
                     <div class="stat-value" id="reaction-average">--</div>
                 </div>
             </div>
-            <button class="back-btn" onclick="backToMenu()">Retour au Menu</button>
+            <button class="back-btn" onclick="backToMenu()">← Retour au menu</button>
         </div>
 
         <!-- Memory Game -->
         <div id="memory-game" class="game-area">
             <h2 class="game-title">🧠 Mémoire Séquentielle</h2>
             <div class="score-display">
-                <span id="memory-score">Niveau: 1</span>
+                <span id="memory-score">Niveau : 1</span>
             </div>
             <p class="instruction" id="memory-instruction">Observez la séquence et reproduisez-la !</p>
             <div class="game-canvas">
@@ -83,30 +80,30 @@
             </div>
             <div class="stats">
                 <div class="stat-item">
-                    <div class="stat-label">Meilleur Niveau</div>
+                    <div class="stat-label">Meilleur niveau</div>
                     <div class="stat-value" id="memory-best">1</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-label">Séquence Actuelle</div>
+                    <div class="stat-label">Séquence actuelle</div>
                     <div class="stat-value" id="memory-current">0</div>
                 </div>
             </div>
-            <button class="back-btn" onclick="backToMenu()">Retour au Menu</button>
+            <button class="back-btn" onclick="backToMenu()">← Retour au menu</button>
         </div>
 
         <!-- Focus Game -->
         <div id="focus-game" class="game-area">
             <h2 class="game-title">🎯 Attention & Focus</h2>
             <div class="score-display">
-                <span id="focus-score">Score: 0</span>
+                <span id="focus-score">Score : 0</span>
             </div>
             <p class="instruction" id="focus-instruction">Cliquez sur les cibles le plus rapidement possible !</p>
-            <div class="game-canvas" id="focus-canvas" style="position: relative; width: 100%; height: 400px; background: rgba(0,255,204,0.05); border: 2px solid var(--primary); border-radius: 10px;">
-                <div id="focus-timer" style="position: absolute; top: 10px; right: 10px; font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent);">30</div>
+            <div class="game-canvas" id="focus-canvas" style="position: relative; width: 100%; height: 400px;">
+                <div id="focus-timer" style="position: absolute; top: 10px; right: 10px;">30</div>
             </div>
             <div class="stats">
                 <div class="stat-item">
-                    <div class="stat-label">Meilleur Score</div>
+                    <div class="stat-label">Meilleur score</div>
                     <div class="stat-value" id="focus-best">0</div>
                 </div>
                 <div class="stat-item">
@@ -114,14 +111,14 @@
                     <div class="stat-value" id="focus-accuracy">100%</div>
                 </div>
             </div>
-            <button class="back-btn" onclick="backToMenu()">Retour au Menu</button>
+            <button class="back-btn" onclick="backToMenu()">← Retour au menu</button>
         </div>
 
         <!-- BLOCKS Game -->
         <div id="blocks-game" class="game-area">
-            <h2 class="game-title">🧊 BLOCKS</h2>
+            <h2 class="game-title">🧊 Blocks</h2>
             <div class="score-display">
-                <span id="blocks-score">Score: 0 | Round: 1/5</span>
+                <span id="blocks-score">Score : 0 | Round : 1/5</span>
             </div>
             <p class="instruction" id="blocks-instruction">Comptez les blocs et validez votre réponse !</p>
             
@@ -138,11 +135,11 @@
 
             <div class="stats">
                 <div class="stat-item">
-                    <div class="stat-label">Round Actuel</div>
+                    <div class="stat-label">Round actuel</div>
                     <div class="stat-value" id="blocks-round">1</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-label">Score Total</div>
+                    <div class="stat-label">Score total</div>
                     <div class="stat-value" id="blocks-total">0</div>
                 </div>
                 <div class="stat-item">
@@ -150,7 +147,7 @@
                     <div class="stat-value" id="blocks-accuracy">--</div>
                 </div>
             </div>
-            <button class="back-btn" onclick="backToMenu()">Retour au Menu</button>
+            <button class="back-btn" onclick="backToMenu()">← Retour au menu</button>
         </div>
     </div>
 
