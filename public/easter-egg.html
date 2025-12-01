@@ -2,17 +2,19 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🥚 Easter Egg - Dracks</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00ffcc;
-            --secondary: #ff00ff;
-            --accent: #ffff00;
-            --dark: #0a0e27;
-            --darker: #050814;
-            --glow: rgba(0, 255, 204, 0.4);
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --bg: #fafbfc;
+            --surface: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
         }
 
         * {
@@ -22,228 +24,305 @@
         }
 
         body {
-            font-family: 'Space Mono', monospace;
-            background: var(--darker);
-            color: var(--primary);
-            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-        }
-
-        /* Animated background */
-        .bg-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, rgba(0,255,204,0.03) 1px, transparent 1px),
-                linear-gradient(rgba(0,255,204,0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridPan 20s linear infinite;
-            z-index: 0;
-        }
-
-        @keyframes gridPan {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        .easter-egg-container {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            max-width: 900px;
-            padding: 3rem;
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .egg-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 900;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, var(--accent), var(--secondary), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-            animation: glow 2s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 255, 0, 0.6)); }
-            50% { filter: drop-shadow(0 0 40px rgba(255, 0, 255, 0.8)); }
-        }
-
-        .egg-subtitle {
-            font-size: 1.2rem;
-            color: var(--primary);
-            margin-bottom: 3rem;
-            opacity: 0.8;
-        }
-
-        .image-container {
-            background: rgba(10, 14, 39, 0.6);
-            border: 3px solid var(--primary);
-            border-radius: 20px;
             padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 0 40px var(--glow);
-            animation: float 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .easter-egg-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .secret-message {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin: 2rem 0;
-            text-shadow: 0 0 20px rgba(255, 255, 0, 0.6);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        .back-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--darker);
-            border: none;
-            padding: 1rem 3rem;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            border-radius: 50px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px var(--glow);
-        }
-
-        .back-btn:hover {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 10px 40px var(--glow);
-        }
-
-        .confetti {
+        /* Animated background particles */
+        .particle {
             position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--accent);
-            animation: confettiFall 3s linear infinite;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: float-up 4s ease-in infinite;
         }
 
-        @keyframes confettiFall {
+        @keyframes float-up {
             0% {
-                transform: translateY(-100vh) rotate(0deg);
-                opacity: 1;
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
             }
             100% {
-                transform: translateY(100vh) rotate(720deg);
+                transform: translateY(-100vh) scale(1);
                 opacity: 0;
             }
         }
 
-        /* Generate random confetti */
-        .confetti:nth-child(1) { left: 10%; animation-delay: 0s; background: var(--primary); }
-        .confetti:nth-child(2) { left: 20%; animation-delay: 0.5s; background: var(--secondary); }
-        .confetti:nth-child(3) { left: 30%; animation-delay: 1s; background: var(--accent); }
-        .confetti:nth-child(4) { left: 40%; animation-delay: 1.5s; background: var(--primary); }
-        .confetti:nth-child(5) { left: 50%; animation-delay: 2s; background: var(--secondary); }
-        .confetti:nth-child(6) { left: 60%; animation-delay: 0.3s; background: var(--accent); }
-        .confetti:nth-child(7) { left: 70%; animation-delay: 0.8s; background: var(--primary); }
-        .confetti:nth-child(8) { left: 80%; animation-delay: 1.3s; background: var(--secondary); }
-        .confetti:nth-child(9) { left: 90%; animation-delay: 1.8s; background: var(--accent); }
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; background: var(--primary); }
+        .particle:nth-child(2) { left: 20%; animation-delay: 0.5s; background: var(--accent); }
+        .particle:nth-child(3) { left: 30%; animation-delay: 1s; background: var(--success); }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1.5s; background: var(--primary); }
+        .particle:nth-child(5) { left: 50%; animation-delay: 2s; background: var(--accent); }
+        .particle:nth-child(6) { left: 60%; animation-delay: 0.3s; background: var(--success); }
+        .particle:nth-child(7) { left: 70%; animation-delay: 0.8s; background: var(--primary); }
+        .particle:nth-child(8) { left: 80%; animation-delay: 1.3s; background: var(--accent); }
+        .particle:nth-child(9) { left: 90%; animation-delay: 1.8s; background: var(--success); }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--success) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+            background-size: 200% auto;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% center;
+            }
+            50% {
+                background-position: 100% center;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 500;
+        }
+
+        .image-wrapper {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-wrapper:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        .easter-egg-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .message {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.1));
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .back-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .back-btn:active {
+            transform: translateY(0);
+        }
 
         @media (max-width: 768px) {
-            .easter-egg-container {
+            body {
                 padding: 1.5rem;
             }
-            
-            .egg-title {
-                font-size: 2rem;
+
+            h1 {
+                font-size: 2.5rem;
             }
-            
-            .egg-subtitle {
+
+            .subtitle {
                 font-size: 1rem;
             }
 
-            .image-container {
+            .image-wrapper {
                 padding: 1rem;
+            }
+
+            .message {
+                font-size: 1.125rem;
+                padding: 1.25rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-    
-    <!-- Confetti animation -->
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
+    <!-- Animated particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
 
-    <div class="easter-egg-container">
-        <h1 class="egg-title">🥚 BRAVO ! 🥚</h1>
-        <p class="egg-subtitle">Vous avez trouvé l'Easter Egg secret !</p>
+    <div class="container">
+        <div class="badge">
+            <span>🎉</span>
+            <span>Achievement Unlocked</span>
+        </div>
 
-        <div class="image-container">
-            <!-- Votre image Easter Egg -->
+        <h1>Félicitations !</h1>
+        <p class="subtitle">Vous avez découvert l'easter egg secret de Dracks</p>
+
+        <div class="image-wrapper">
             <img src="jawdan.jpg" 
                  alt="Easter Egg Secret" 
                  class="easter-egg-image"
-                 onerror="this.src='https://via.placeholder.com/600x400/0a0e27/00ffcc?text=IMAGE+NON+TROUVEE'">
+                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 400%22%3E%3Crect fill=%22%23f3f4f6%22 width=%22600%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2224%22 fill=%22%236b7280%22%3E🥚 Easter Egg%3C/text%3E%3C/svg%3E'">
         </div>
 
-        <p class="secret-message">
-            ✨ Vous êtes un vrai champion cérébral ! ✨
-        </p>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-label">Niveau</div>
+                <div class="stat-value">Expert</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-label">Curiosité</div>
+                <div class="stat-value">100%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-label">Précision</div>
+                <div class="stat-value">5/5</div>
+            </div>
+        </div>
+
+        <div class="message">
+            ✨ Vous êtes un vrai champion cérébral ! Continuez à vous entraîner pour améliorer vos performances.
+        </div>
 
         <a href="index.html" class="back-btn">← Retour aux jeux</a>
     </div>
-
-    <script>
-        // Audio Easter Egg (optionnel)
-        const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZQQ0MUKXi8LdlHgU7k9fzxnksAyh6x/DdkUAKFF60');
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            try {
-                // Jouer un son de victoire (optionnel - peut ne pas fonctionner sur certains navigateurs)
-                // audio.play().catch(e => console.log('Audio not supported'));
-            } catch(e) {
-                console.log('Audio playback not supported');
-            }
-        });
-    </script>
 </body>
 </html>

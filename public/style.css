@@ -60,6 +60,12 @@ h1 {
     animation: shimmer 4s ease-in-out infinite;
     position: relative;
     display: inline-block;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+h1:hover {
+    transform: scale(1.02);
 }
 
 @keyframes shimmer {
